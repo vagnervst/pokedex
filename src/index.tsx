@@ -1,15 +1,27 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { QueryClientProvider, QueryClient } from 'react-query'
+
 import GlobalStyles from './theme/global'
 import reportWebVitals from './reportWebVitals'
 
 import App from './App'
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    }
+  }
+})
+
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyles>
-    <App />
-    </GlobalStyles>
+    <QueryClientProvider client={queryClient}>
+      <GlobalStyles>
+        <App />
+      </GlobalStyles>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
