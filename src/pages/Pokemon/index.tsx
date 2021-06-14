@@ -1,5 +1,3 @@
-/* eslint-disable */
-import { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useHistory, useParams } from 'react-router'
 
@@ -13,6 +11,7 @@ import { ReactComponent as BookmarkIcon } from './bookmark.svg'
 import { ReactComponent as BookmarkedIcon } from './bookmarked.svg'
 import { statLabels } from './labels'
 import usePokemon from './hooks/usePokemon'
+import useBookmark from '../../hooks/useBookmark'
 
 import {
   Attribute,
@@ -31,7 +30,6 @@ import {
 type Props = {
   pokemonId: number,
   onBackClick: () => void,
-  onBookmarkClick: (bookmarked: boolean) => void,
   hooks: {
     usePokemon: (id: number) =>
       UseQueryResult<PokemonDetails> |
@@ -40,18 +38,23 @@ type Props = {
 }
 
 export const Pokemon = (
-  { pokemonId, onBackClick, onBookmarkClick, hooks }: Props
+  { pokemonId, onBackClick, hooks }: Props
 ): JSX.Element => {
   const { data } = hooks.usePokemon(pokemonId)
-  const [bookmarked, setBookmarked] = useState(false)
+  const { get, add, remove } = useBookmark()
+
+  const bookmarked = !!get(pokemonId)
 
   const BookmarkStateIcon = bookmarked ? BookmarkedIcon : BookmarkIcon
 
   const handleBookmark = () => {
     const newBookmarkState = !bookmarked
-    setBookmarked(newBookmarkState)
 
-    onBookmarkClick(newBookmarkState)
+    if (newBookmarkState) {
+      add(pokemonId)
+    } else {
+      remove(pokemonId)
+    }
   }
 
   return (
@@ -90,15 +93,21 @@ export const Pokemon = (
   )
 }
 
-const PokemonPage = () => {
+const PokemonPage = (): JSX.Element | null => {
   const { id } = useParams<{ id: string }>()
   const { replace } = useHistory()
 
+  const numberId = Number.parseInt(id, 10)
+
+  if (Number.isNaN(numberId)) {
+    replace('/pokemon')
+    return null
+  }
+
   return (
     <Pokemon
-      pokemonId={Number(id)}
+      pokemonId={numberId}
       onBackClick={() => replace('/pokemon')}
-      onBookmarkClick={console.log}
       hooks={{ usePokemon }}
     />
   )

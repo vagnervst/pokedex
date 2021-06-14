@@ -34,7 +34,6 @@ it('should show the pokemon stats', () => {
     <Pokemon
       pokemonId={1}
       onBackClick={jest.fn()}
-      onBookmarkClick={jest.fn()}
       hooks={{ usePokemon }}
     />
   )
@@ -58,7 +57,6 @@ it('should show the pokemon types', () => {
     <Pokemon
       pokemonId={1}
       onBackClick={jest.fn()}
-      onBookmarkClick={jest.fn()}
       hooks={{ usePokemon }}
     />
   )
@@ -68,7 +66,7 @@ it('should show the pokemon types', () => {
 })
 
 it('should change bookmark state', () => {
-  const onBookmarkClick = jest.fn()
+  localStorage.clear()
 
   const usePokemon = ():
     Partial<QueryObserverSuccessResult<PokemonDetails>> => ({
@@ -80,14 +78,13 @@ it('should change bookmark state', () => {
     <Pokemon
       pokemonId={1}
       onBackClick={jest.fn()}
-      onBookmarkClick={onBookmarkClick}
       hooks={{ usePokemon }}
     />
   )
 
   fireEvent.click(screen.getByRole('button', { name: 'Bookmark Pokémon' }))
-  expect(onBookmarkClick).toHaveBeenCalledWith(true)
+  expect(localStorage.getItem('bookmarks')).toEqual(JSON.stringify([1]))
 
   fireEvent.click(screen.getByRole('button', { name: 'Bookmark Pokémon' }))
-  expect(onBookmarkClick).toHaveBeenCalledWith(false)
+  expect(localStorage.getItem('bookmarks')).toEqual(JSON.stringify([]))
 })

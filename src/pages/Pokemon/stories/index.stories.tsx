@@ -1,11 +1,17 @@
 import { action } from '@storybook/addon-actions'
 import { QueryObserverSuccessResult } from 'react-query'
 
+import mockLocalStorage from '../../../mocks/localStorage'
+
 import { PokemonDetails, PokemonStats } from '../../../types/pokemon'
 
 import { Pokemon } from '..'
 
 import BulbasaurImage from './bulbasaur.png'
+
+Object.defineProperty(window, 'localStorage', {
+  value: mockLocalStorage(),
+})
 
 const usePokemon = (): Partial<QueryObserverSuccessResult<PokemonDetails>> => ({
   isLoading: false,
@@ -37,7 +43,6 @@ export const Default = (): JSX.Element => (
   <Pokemon
     pokemonId={1}
     onBackClick={action('onBackClick')}
-    onBookmarkClick={action('onBookmarkClick')}
     hooks={{ usePokemon }}
   />
 )
