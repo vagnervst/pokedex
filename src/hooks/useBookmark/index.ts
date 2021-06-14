@@ -5,10 +5,12 @@ type useBookmark = {
   get: (id: number) => number | undefined,
   getAll: () => number[],
   remove: (id: number) => number[],
+  loading: boolean,
 }
 
 const useBookmark = (): useBookmark => {
   const [bookmarks, setBookmarks] = useState<number[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const bookmarked = localStorage.getItem('bookmarks')
@@ -16,6 +18,8 @@ const useBookmark = (): useBookmark => {
     if (bookmarked) {
       setBookmarks(JSON.parse(bookmarked))
     }
+
+    setLoading(false)
   }, [])
 
   const setLocalStorage = (newState: number[]) => {
@@ -56,6 +60,7 @@ const useBookmark = (): useBookmark => {
     get,
     getAll,
     remove,
+    loading,
   }
 }
 

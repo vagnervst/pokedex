@@ -12,6 +12,12 @@ it('should start empty when there are no bookmarks on localstorage', () => {
   expect(result.current.getAll()).toHaveLength(0)
 })
 
+it('should set loading as false after mounting', () => {
+  const { result } = renderHook(() => useBookmark())
+
+  expect(result.current.loading).toBeFalsy()
+})
+
 it('should add pokemon to bookmark list', () => {
   const { result } = renderHook(() => useBookmark())
 
