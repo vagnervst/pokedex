@@ -36,7 +36,10 @@ const usePokemon = (): Partial<QueryObserverSuccessResult<PokemonDetails>> => ({
 
 export default {
   title: 'Pages/Pokémon',
-  component: Pokemon
+  component: Pokemon,
+  parameters: {
+    layout: 'fullscreen',
+  },
 }
 
 export const Default = (): JSX.Element => (

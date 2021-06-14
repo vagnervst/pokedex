@@ -8,6 +8,9 @@ import BulbasaurImage from './bulbasaur.png'
 export default {
   title: 'Pages/Home',
   component: Home,
+  parameters: {
+    layout: 'fullscreen',
+  },
 }
 
 const pokemons = [
