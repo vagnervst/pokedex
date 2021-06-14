@@ -1,9 +1,9 @@
 import { useQuery, UseQueryResult } from 'react-query'
 import { gql } from 'graphql-request'
 
-import client from '../../../utils/api/client'
+import client, { getPokemonPictureUrl } from '../../../utils/api/client'
 
-import type { Pokemon } from '../../../types/pokemon'
+import type { PokemonType } from '../../../types/pokemon'
 
 type PokemonsResponse = {
   pokemons: { id: number, name: string }[]
@@ -23,10 +23,11 @@ const fetch = async () => {
 
   return pokemons.map(pokemon => ({
     ...pokemon,
-    picture: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`
+    picture: getPokemonPictureUrl(pokemon.id),
   }))
 }
 
-const query = (): UseQueryResult<Pokemon[]> => useQuery('pokemonList', fetch)
+const query = (): UseQueryResult<PokemonType[]> =>
+  useQuery('pokemonList', fetch)
 
 export default query

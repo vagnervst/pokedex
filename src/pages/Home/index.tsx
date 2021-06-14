@@ -1,4 +1,5 @@
 import { UseQueryResult } from 'react-query'
+import { useHistory } from 'react-router'
 
 import {
   Container,
@@ -6,7 +7,7 @@ import {
   Title,
 } from './styles'
 
-import type { Pokemon } from '../../types/pokemon'
+import type { PokemonType } from '../../types/pokemon'
 
 import usePokemonList from './hooks/usePokemonList'
 
@@ -15,7 +16,7 @@ import PokemonList from '../../components/PokemonList'
 
 type Props = {
   hooks: {
-    usePokemonList: () => UseQueryResult<Pokemon[]>|Partial<UseQueryResult<Pokemon[]>>
+    usePokemonList: () => UseQueryResult<PokemonType[]>|Partial<UseQueryResult<PokemonType[]>>
   },
   onPokemonClick?: (id: number) => void,
 }
@@ -48,9 +49,15 @@ export const Home = ({
 }
 
 const HomePage = (): JSX.Element => {
+  const { push } = useHistory()
+
+  const handlePokemonClick = (id: number) => {
+    push(`/pokemon/${id}`)
+  }
+
   return (
     <Home
-      onPokemonClick={console.log}
+      onPokemonClick={handlePokemonClick}
       hooks={{ usePokemonList }}
     />
   )

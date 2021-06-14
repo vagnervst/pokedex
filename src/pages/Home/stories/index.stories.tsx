@@ -1,7 +1,7 @@
 import { QueryObserverSuccessResult, QueryObserverLoadingResult } from 'react-query'
 
 import { Home } from '..'
-import { Pokemon } from '../../../types/pokemon'
+import { PokemonType } from '../../../types/pokemon'
 
 import BulbasaurImage from './bulbasaur.png'
 
@@ -25,7 +25,7 @@ const pokemons = [
 
 export const Default = (): JSX.Element => (
   <Home hooks={{
-      usePokemonList: (): Partial<QueryObserverSuccessResult<Pokemon[]>> => ({
+      usePokemonList: (): Partial<QueryObserverSuccessResult<PokemonType[]>> => ({
         isLoading: false,
         data: pokemons
       })
@@ -35,7 +35,7 @@ export const Default = (): JSX.Element => (
 
 export const Disabled = (): JSX.Element => (
   <Home hooks={{
-      usePokemonList: (): Partial<QueryObserverLoadingResult<Pokemon[]>> => ({
+      usePokemonList: (): Partial<QueryObserverLoadingResult<PokemonType[]>> => ({
         isLoading: true,
       })
     }}
