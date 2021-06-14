@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useHistory } from 'react-router'
 
@@ -10,13 +11,15 @@ import {
 import type { PokemonType } from '../../types/pokemon'
 
 import usePokemonList from './hooks/usePokemonList'
+import useDebounce from '../../hooks/useDebounce'
 
 import Input from '../../components/Input'
 import PokemonList from '../../components/PokemonList'
 
 type Props = {
   hooks: {
-    usePokemonList: () => UseQueryResult<PokemonType[]>|Partial<UseQueryResult<PokemonType[]>>
+    usePokemonList: (name: string) =>
+      UseQueryResult<PokemonType[]>|Partial<UseQueryResult<PokemonType[]>>
   },
   onPokemonClick?: (id: number) => void,
 }
@@ -25,7 +28,9 @@ export const Home = ({
   onPokemonClick = () => ({}),
   hooks,
 }: Props): JSX.Element => {
-  const { isLoading, data } = hooks.usePokemonList()
+  const [search, setSearch] = useState('')
+  const debounced = useDebounce(search, 400)
+  const { isLoading, data } = hooks.usePokemonList(debounced)
 
   return (
     <Container>
@@ -33,8 +38,9 @@ export const Home = ({
       <form>
         <Input
           disabled={isLoading}
+          name="search"
           placeholder="Search for a pokémon"
-          onChange={console.log}
+          onChange={({ target }) => setSearch(target.value)}
         />
       </form>
       <Subtitle>

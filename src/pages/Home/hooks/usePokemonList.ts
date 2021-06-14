@@ -10,16 +10,18 @@ type PokemonsResponse = {
 }
 
 const pokemonsQuery = gql`
-query {
-  pokemons: pokemon_v2_pokemon(offset: 0, limit: 10) {
+query ($name: String!) {
+  pokemons: pokemon_v2_pokemon(offset: 0, limit: 10, where: { name: { _regex: $name } }) {
     id
     name
   }
 }
 `
 
-const fetch = async () => {
-  const { pokemons } = await client<PokemonsResponse>(pokemonsQuery)
+const fetch = async (name: string) => {
+  const { pokemons } = await client<PokemonsResponse, { name: string }>(
+    pokemonsQuery, { name }
+  )
 
   return pokemons.map(pokemon => ({
     ...pokemon,
@@ -27,7 +29,7 @@ const fetch = async () => {
   }))
 }
 
-const query = (): UseQueryResult<PokemonType[]> =>
-  useQuery('pokemonList', fetch)
+const query = (search: string): UseQueryResult<PokemonType[]> =>
+  useQuery(`pokemonList/${search}`, () => fetch(search))
 
 export default query

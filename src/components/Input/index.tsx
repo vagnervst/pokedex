@@ -7,18 +7,21 @@ import {
 
 type Props = {
   disabled?: boolean,
-  onChange: ChangeEventHandler,
+  name?: string,
+  onChange: ChangeEventHandler<HTMLInputElement>,
   placeholder?: string,
 }
 
 const SearchInput = ({
   disabled = false,
+  name = '',
   onChange,
   placeholder,
 }: Props): JSX.Element => (
   <Container>
     <Input
       disabled={disabled}
+      name={name}
       onChange={e => !disabled && onChange(e)}
       placeholder={placeholder}
     />
