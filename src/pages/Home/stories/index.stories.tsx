@@ -1,3 +1,5 @@
+import { action } from '@storybook/addon-actions'
+
 import { Home } from '..'
 
 import BulbasaurImage from './bulbasaur.png'
@@ -24,7 +26,10 @@ const pokemons = [
 ]
 
 export const Default = (): JSX.Element => (
-  <Home hooks={{
+  <Home
+    onBookmarksClick={action('onBookmarksClick')}
+    onPokemonClick={action('onPokemonClick')}
+    hooks={{
       usePokemonList: () => ({
         isLoading: false,
         data: {
@@ -39,7 +44,10 @@ export const Default = (): JSX.Element => (
 )
 
 export const Disabled = (): JSX.Element => (
-  <Home hooks={{
+  <Home
+    onBookmarksClick={action('onBookmarksClick')}
+    onPokemonClick={action('onPokemonClick')}
+    hooks={{
       usePokemonList: () => ({
         isLoading: true,
       })

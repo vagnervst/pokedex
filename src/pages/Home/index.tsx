@@ -5,26 +5,31 @@ import { useHistory } from 'react-router'
 import {
   Container,
   Subtitle,
-  Title,
 } from './styles'
+
+import { ReactComponent as BookmarksIcon } from './bookmarks.svg'
 
 import type { PokemonType } from '../../types/pokemon'
 
 import usePokemonList from './hooks/usePokemonList'
 import useDebounce from '../../hooks/useDebounce'
 
+import Header from '../../components/Header'
 import Input from '../../components/Input'
 import PokemonList from '../../components/PokemonList'
+import IconButton from '../../components/IconButton'
 
 type Props = {
   hooks: {
     usePokemonList: (name: string) =>
       Partial<UseInfiniteQueryResult<{ data: PokemonType[] }>>
   },
-  onPokemonClick?: (id: number) => void,
+  onBookmarksClick: () => void,
+  onPokemonClick: (id: number) => void,
 }
 
 export const Home = ({
+  onBookmarksClick,
   onPokemonClick = () => ({}),
   hooks,
 }: Props): JSX.Element => {
@@ -39,13 +44,20 @@ export const Home = ({
 
   return (
     <Container>
-      <Title>Pokédex</Title>
-        <Input
-          disabled={isLoading}
-          name="search"
-          placeholder="Search for a pokémon"
-          onChange={({ target }) => setSearch(target.value)}
+      <Header title="Pokédex">
+        <IconButton
+          ariaLabel="Bookmarks"
+          onClick={onBookmarksClick}
+          variant="ghost"
+          icon={<BookmarksIcon width={24} height={24} />}
         />
+      </Header>
+      <Input
+        disabled={isLoading}
+        name="search"
+        placeholder="Search for a pokémon"
+        onChange={({ target }) => setSearch(target.value)}
+      />
       <Subtitle>
         The Pokédex contains detailed stats for every
         creature from the Pokémon games.
@@ -62,13 +74,10 @@ export const Home = ({
 const HomePage = (): JSX.Element => {
   const { push } = useHistory()
 
-  const handlePokemonClick = (id: number) => {
-    push(`/pokemon/${id}`)
-  }
-
   return (
     <Home
-      onPokemonClick={handlePokemonClick}
+      onBookmarksClick={() => push('/bookmarks')}
+      onPokemonClick={id => push(`/pokemon/${id}`)}
       hooks={{ usePokemonList }}
     />
   )
