@@ -30,12 +30,12 @@ export const Default = (): JSX.Element => (
     onBookmarksClick={action('onBookmarksClick')}
     onPokemonClick={action('onPokemonClick')}
     hooks={{
-      usePokemonList: () => ({
+      usePokemons: () => ({
         isLoading: false,
         data: {
           pageParams: [],
           pages: [
-            { data: pokemons },
+            { offset: 0, data: pokemons },
           ]
         }
       })
@@ -48,9 +48,7 @@ export const Disabled = (): JSX.Element => (
     onBookmarksClick={action('onBookmarksClick')}
     onPokemonClick={action('onPokemonClick')}
     hooks={{
-      usePokemonList: () => ({
-        isLoading: true,
-      })
+      usePokemons: () => ({ isLoading: true })
     }}
   />
 )

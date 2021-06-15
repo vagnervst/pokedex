@@ -8,13 +8,13 @@ const pokemons = [
 ]
 
 it('should disable interactive components while on loading state', () => {
-  const usePokemonList = () => ({
+  const usePokemons = () => ({
     isLoading: true,
   })
 
   render(
     <Home
-      hooks={{ usePokemonList }}
+      hooks={{ usePokemons }}
       onBookmarksClick={jest.fn()}
       onPokemonClick={jest.fn()}
     />
@@ -24,18 +24,13 @@ it('should disable interactive components while on loading state', () => {
 })
 
 it('should render items without errors', () => {
-  const usePokemonList = () => ({
-    data: {
-      pageParams: [],
-      pages: [
-        { data: pokemons },
-      ]
-    }
+  const usePokemons = () => ({
+    data: { pageParams: [], pages: [{ offset: 0, data: pokemons }] }
   })
 
   render(
     <Home
-      hooks={{ usePokemonList }}
+      hooks={{ usePokemons }}
       onBookmarksClick={jest.fn()}
       onPokemonClick={jest.fn()}
     />
@@ -45,20 +40,15 @@ it('should render items without errors', () => {
 it('should call onPokemonClick with pokemon id', () => {
   const onPokemonClick = jest.fn()
 
-  const usePokemonList = () => ({
-    data: {
-      pageParams: [],
-      pages: [
-        { data: pokemons },
-      ]
-    }
+  const usePokemons = () => ({
+    data: { pageParams: [], pages: [{ offset: 0, data: pokemons }] }
   })
 
   render(
     <Home
       onBookmarksClick={jest.fn()}
       onPokemonClick={onPokemonClick}
-      hooks={{ usePokemonList }}
+      hooks={{ usePokemons }}
     />
   )
 
@@ -70,20 +60,15 @@ it('should call onPokemonClick with pokemon id', () => {
 it('should call onBookmarksClick when clicking on bookmarks icon', () => {
   const onBookmarksClick = jest.fn()
 
-  const usePokemonList = () => ({
-    data: {
-      pageParams: [],
-      pages: [
-        { data: pokemons },
-      ]
-    }
+  const usePokemons = () => ({
+    data: { pageParams: [], pages: [{ offset: 0, data: pokemons }] }
   })
 
   render(
     <Home
       onPokemonClick={jest.fn()}
       onBookmarksClick={onBookmarksClick}
-      hooks={{ usePokemonList }}
+      hooks={{ usePokemons }}
     />
   )
 

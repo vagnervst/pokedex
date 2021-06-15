@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { UseInfiniteQueryResult } from 'react-query'
 import { useHistory } from 'react-router'
 
 import {
@@ -9,9 +8,7 @@ import {
 
 import { ReactComponent as BookmarksIcon } from './bookmarks.svg'
 
-import type { PokemonType } from '../../types/pokemon'
-
-import usePokemonList from './hooks/usePokemonList'
+import usePokemons, { usePokemonsType } from '../../hooks/usePokemons'
 import useDebounce from '../../hooks/useDebounce'
 
 import Header from '../../components/Header'
@@ -20,10 +17,7 @@ import PokemonList from '../../components/PokemonList'
 import IconButton from '../../components/IconButton'
 
 type Props = {
-  hooks: {
-    usePokemonList: (name: string) =>
-      Partial<UseInfiniteQueryResult<{ data: PokemonType[] }>>
-  },
+  hooks: { usePokemons: usePokemonsType },
   onBookmarksClick: () => void,
   onPokemonClick: (id: number) => void,
 }
@@ -36,7 +30,7 @@ export const Home = ({
   const [search, setSearch] = useState('')
   const pokemonName = useDebounce(search, 400)
 
-  const { isLoading, data, fetchNextPage } = hooks.usePokemonList(pokemonName)
+  const { isLoading, data, fetchNextPage } = hooks.usePokemons(pokemonName, [])
 
   const pokemons = data
     ? data.pages.map(({ data }) => data)
@@ -78,7 +72,7 @@ const HomePage = (): JSX.Element => {
     <Home
       onBookmarksClick={() => push('/bookmarks')}
       onPokemonClick={id => push(`/pokemon/${id}`)}
-      hooks={{ usePokemonList }}
+      hooks={{ usePokemons }}
     />
   )
 }
