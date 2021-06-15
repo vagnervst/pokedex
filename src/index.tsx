@@ -5,23 +5,28 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 import GlobalStyles from './theme/global'
 import reportWebVitals from './reportWebVitals'
 
+import ErrorBoundary from './components/errorBoundary'
+
 import App from './App'
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      useErrorBoundary: true,
       refetchOnWindowFocus: false,
-    }
+    },
   }
 })
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyles>
-        <App />
-      </GlobalStyles>
-    </QueryClientProvider>
+    <GlobalStyles>
+      <ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </ErrorBoundary>
+    </GlobalStyles>
   </React.StrictMode>,
   document.getElementById('root')
 )

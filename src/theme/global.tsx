@@ -4,6 +4,10 @@ import { ReactChild } from 'react'
 const CSSReset = () => (
   <Global
     styles={css`
+      html, body, #root {
+        height: 100%;
+      }
+
       * {
         box-sizing: border-box;
         margin: 0;
