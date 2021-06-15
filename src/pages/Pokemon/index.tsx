@@ -5,6 +5,7 @@ import Badge from '../../components/Badge'
 import IconButton from '../../components/IconButton'
 import ArrowBack from '../../components/ArrowBack'
 import Image from '../../components/Image'
+import Spinner from '../../components/Spinner'
 
 import type { PokemonDetails } from '../../types/pokemon'
 
@@ -26,6 +27,7 @@ import {
   Name,
   PictureContainer,
   TypesList,
+  SpinnerStyle,
 } from './styles'
 
 type Props = {
@@ -41,7 +43,7 @@ type Props = {
 export const Pokemon = (
   { pokemonId, onBackClick, hooks }: Props
 ): JSX.Element => {
-  const { data } = hooks.usePokemon(pokemonId)
+  const { isLoading, data } = hooks.usePokemon(pokemonId)
   const { get, add, remove } = useBookmark()
 
   const bookmarked = !!get(pokemonId)
@@ -62,24 +64,34 @@ export const Pokemon = (
     <Container>
       <Header>
         <ArrowBack onClick={onBackClick} />
-        <BookmarkContainer>
-          <IconButton
-            ariaLabel="Bookmark Pokémon"
-            onClick={handleBookmark}
-            icon={<BookmarkStateIcon width={32} height={32} />}
-          />
-        </BookmarkContainer>
-        <HeaderContent>
-          <Id>#{String(data && data.id).padStart(3, '0')}</Id>
-          <Name>{data && data.name}</Name>
-          <PictureContainer>
-            <Image
-              alt={data?.name || ''}
-              width={150}
-              height={150}
-              src={data?.picture || ''}
+        {!isLoading && (
+          <BookmarkContainer>
+            <IconButton
+              ariaLabel="Bookmark Pokémon"
+              onClick={handleBookmark}
+              icon={<BookmarkStateIcon width={32} height={32} />}
             />
-          </PictureContainer>
+          </BookmarkContainer>
+        )}
+        <HeaderContent>
+          {isLoading ? (
+            <SpinnerStyle>
+              <Spinner r={50} />
+            </SpinnerStyle>
+          ) : (
+            <>
+              <Id>#{String(data && data.id).padStart(3, '0')}</Id>
+              <Name>{data && data.name}</Name>
+              <PictureContainer>
+                <Image
+                  alt={data?.name || ''}
+                  width={150}
+                  height={150}
+                  src={data?.picture || ''}
+                />
+              </PictureContainer>
+            </>
+          )}
         </HeaderContent>
       </Header>
       <Main>

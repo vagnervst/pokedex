@@ -56,7 +56,15 @@ export const Header = styled.div`
 `
 
 export const HeaderContent = styled.div`
+  height: 100%;
   padding: 0 24px;
+`
+
+export const SpinnerStyle = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 `
 
 export const Id = styled.span`
@@ -90,4 +98,3 @@ export const TypesList = styled.div`
     margin: 4px;
   }
 `
-
