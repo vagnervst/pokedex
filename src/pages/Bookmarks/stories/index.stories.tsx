@@ -21,6 +21,7 @@ const usePokemons = () => ({
 export const Default = (): JSX.Element => (
   <Bookmarks
     onPokemonClick={action('onPokemonClick')}
+    onNavigateBack={action('onNavigateBack')}
     hooks={{ usePokemons }}
   />
 )
