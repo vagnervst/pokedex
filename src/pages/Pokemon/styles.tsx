@@ -76,11 +76,10 @@ export const Name = styled.h2`
   font-weight: 700;
 `
 
-export const Picture = styled.img`
+export const PictureContainer = styled.div`
   width: 150px;
-  height: 150px;
-  margin: 0 auto;
   display: block;
+  margin: 0 auto;
 `
 
 export const TypesList = styled.div`

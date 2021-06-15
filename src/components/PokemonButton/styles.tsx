@@ -13,9 +13,7 @@ const Flex = styled.div`
   flex: 1;
 `
 
-export const Image = styled.img`
-  height: 64px;
-  width: 64px;
+export const ImageContainer = styled.div`
   margin: 6px;
 `
 

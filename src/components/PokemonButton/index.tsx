@@ -2,10 +2,10 @@ import {
   Container,
   FlexContainer,
   Identifier,
-  Image,
+  ImageContainer,
 } from './styles'
 
-import Pokeball from './pokeball.svg'
+import Image from '../../components/Image'
 
 type Props = {
   id: number,
@@ -21,9 +21,14 @@ const PokemonButton = ({
   picture,
 }: Props): JSX.Element => (
   <Container role="button" onClick={() => onClick(id)}>
-    <Image
-      src={picture || Pokeball}
-    />
+    <ImageContainer>
+      <Image
+        alt={name}
+        width={64}
+        height={64}
+        src={picture}
+      />
+    </ImageContainer>
     <FlexContainer>
       {name}
     </FlexContainer>

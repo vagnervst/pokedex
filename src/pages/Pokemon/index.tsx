@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router'
 import Badge from '../../components/Badge'
 import IconButton from '../../components/IconButton'
 import ArrowBack from '../../components/ArrowBack'
+import Image from '../../components/Image'
 
 import type { PokemonDetails } from '../../types/pokemon'
 
@@ -23,7 +24,7 @@ import {
   Id,
   Main,
   Name,
-  Picture,
+  PictureContainer,
   TypesList,
 } from './styles'
 
@@ -71,7 +72,14 @@ export const Pokemon = (
         <HeaderContent>
           <Id>#{String(data && data.id).padStart(3, '0')}</Id>
           <Name>{data && data.name}</Name>
-          <Picture src={data && data.picture} />
+          <PictureContainer>
+            <Image
+              alt={data?.name || ''}
+              width={150}
+              height={150}
+              src={data?.picture || ''}
+            />
+          </PictureContainer>
         </HeaderContent>
       </Header>
       <Main>
