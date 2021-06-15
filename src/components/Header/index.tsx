@@ -19,7 +19,7 @@ const Header = ({
   showBackButton = false,
   title,
 }: Props): JSX.Element => (
-  <Flex style={{ marginBottom: '8px' }} direction="column">
+  <Flex direction="column">
     {showBackButton && (
       <ArrowBack fill="black" onClick={onNavigateBack} />
     )}
