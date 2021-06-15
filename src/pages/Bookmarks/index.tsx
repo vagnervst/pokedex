@@ -1,21 +1,15 @@
-import { UseQueryOptions, UseQueryResult } from 'react-query'
 import { useHistory } from 'react-router'
-
-import { PokemonType } from '../../types/pokemon'
 
 import Header from '../../components/Header'
 import PokemonList from '../../components/PokemonList'
 
 import useBookmark from '../../hooks/useBookmark'
-import usePokemons from '../../hooks/usePokemons'
+import usePokemons, { usePokemonsType } from '../../hooks/usePokemons'
 
 import { Container } from './styles'
 
 type Props = {
-  hooks: {
-    usePokemons: (ids: number[], opts: UseQueryOptions<PokemonType[]>) =>
-      UseQueryResult<PokemonType[]>|Partial<UseQueryResult<PokemonType[]>>
-  },
+  hooks: { usePokemons: usePokemonsType },
   onPokemonClick: (id: number) => void,
   onNavigateBack: () => void,
 }
@@ -27,7 +21,15 @@ export const Bookmarks = ({
 }: Props): JSX.Element => {
   const { getAll, loading } = useBookmark()
 
-  const { data } = hooks.usePokemons(getAll(), { enabled: !loading })
+  const { data, fetchNextPage } = hooks.usePokemons(
+    '',
+    getAll(),
+    { enabled: !loading }
+  )
+
+  const pokemons = data
+    ? data.pages.map(({ data }) => data)
+    : []
 
   return (
     <Container>
@@ -37,8 +39,9 @@ export const Bookmarks = ({
         showBackButton
       />
       <PokemonList
-        items={data || []}
+        items={pokemons.flat()}
         onItemClick={onPokemonClick}
+        onLoadMore={fetchNextPage}
       />
     </Container>
   )

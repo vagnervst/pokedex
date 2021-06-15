@@ -1,8 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { QueryObserverSuccessResult } from 'react-query'
 
 import { Bookmarks } from '.'
-import { PokemonType } from '../../types/pokemon'
 
 const pokemons = [
   { id: 1, name: 'Bulbasaur', picture: '' },
@@ -10,9 +8,8 @@ const pokemons = [
 ]
 
 it('should render items without errors', () => {
-  const usePokemons = (): Partial<QueryObserverSuccessResult<PokemonType[]>> => ({
-    isLoading: false,
-    data: pokemons,
+  const usePokemons = () => ({
+    data: { pageParams: [], pages: [{ offset: 0, data: pokemons }] },
   })
 
   render(
@@ -27,9 +24,8 @@ it('should render items without errors', () => {
 it('should call onPokemonClick with pokemon id', () => {
   const onPokemonClick = jest.fn()
 
-  const usePokemons = (): Partial<QueryObserverSuccessResult<PokemonType[]>> => ({
-    isLoading: false,
-    data: pokemons,
+  const usePokemons = () => ({
+    data: { pageParams: [], pages: [{ offset: 0, data: pokemons }] },
   })
 
   render(
@@ -48,9 +44,8 @@ it('should call onPokemonClick with pokemon id', () => {
 it('should call onNavigateBack when clicking on back button', () => {
   const onNavigateBack = jest.fn()
 
-  const usePokemons = (): Partial<QueryObserverSuccessResult<PokemonType[]>> => ({
-    isLoading: false,
-    data: pokemons,
+  const usePokemons = () => ({
+    data: { pageParams: [], pages: [{ offset: 0, data: pokemons }] },
   })
 
   render(

@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions'
 
 import { Bookmarks } from '..'
 
-import BulbasaurPng from './bulbasaur.png'
+import BulbasaurImage from './bulbasaur.png'
 
 export default {
   title: 'pages/Bookmarks',
@@ -12,10 +12,18 @@ export default {
   },
 }
 
+const pokemons = [
+  { id: 1, picture: BulbasaurImage, name: 'Bulbasaur' },
+  { id: 2, picture: BulbasaurImage, name: 'Bulbasaur Clone' },
+]
+
 const usePokemons = () => ({
-  data: [
-    { id: 1, name: 'Bulbasaur', picture: BulbasaurPng },
-  ],
+  data: {
+    pageParams: [],
+    pages: [
+      { offset: 0, data: pokemons },
+    ]
+  },
 })
 
 export const Default = (): JSX.Element => (
