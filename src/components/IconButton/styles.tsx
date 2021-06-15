@@ -8,7 +8,7 @@ const Base = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 16px;
+  padding: 8px;
 `
 
 export const Solid = styled(Base)`
@@ -23,6 +23,15 @@ export const Solid = styled(Base)`
 
   &:active {
     background-color: #a5130e;
+  }
+`
+
+export const Ghost = styled(Base)`
+  border-radius: 4px;
+  transition: .2s background-color;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, .15);
   }
 `
 
