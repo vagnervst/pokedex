@@ -1,11 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { QueryObserverSuccessResult, QueryObserverLoadingResult } from 'react-query'
 
 import { Home } from '.'
-import { PokemonType } from '../../types/pokemon'
+
+const pokemons = [
+  { id: 1, name: 'Bulbasaur', picture: '' },
+  { id: 2, name: 'Pikachu', picture: '' },
+]
 
 it('should disable interactive components while on loading state', () => {
-  const usePokemonList = (): Partial<QueryObserverLoadingResult<PokemonType[]>> => ({
+  const usePokemonList = () => ({
     isLoading: true,
   })
 
@@ -15,12 +18,13 @@ it('should disable interactive components while on loading state', () => {
 })
 
 it('should render items without errors', () => {
-  const usePokemonList = (): Partial<QueryObserverSuccessResult<PokemonType[]>> => ({
-    isLoading: false,
-    data: [
-      { id: 1, name: 'Bulbasaur', picture: '' },
-      { id: 2, name: 'Pikachu', picture: '' },
-    ]
+  const usePokemonList = () => ({
+    data: {
+      pageParams: [],
+      pages: [
+        { data: pokemons },
+      ]
+    }
   })
 
   render(<Home hooks={{ usePokemonList }} />)
@@ -29,12 +33,13 @@ it('should render items without errors', () => {
 it('should call onPokemonClick with pokemon id', () => {
   const onPokemonClick = jest.fn()
 
-  const usePokemonList = (): Partial<QueryObserverSuccessResult<PokemonType[]>> => ({
-    isLoading: false,
-    data: [
-      { id: 1, name: 'Bulbasaur', picture: '' },
-      { id: 2, name: 'Pikachu', picture: '' },
-    ]
+  const usePokemonList = () => ({
+    data: {
+      pageParams: [],
+      pages: [
+        { data: pokemons },
+      ]
+    }
   })
 
   render(

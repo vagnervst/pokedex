@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { UseQueryResult } from 'react-query'
+import { UseInfiniteQueryResult } from 'react-query'
 import { useHistory } from 'react-router'
 
 import {
@@ -19,7 +19,7 @@ import PokemonList from '../../components/PokemonList'
 type Props = {
   hooks: {
     usePokemonList: (name: string) =>
-      UseQueryResult<PokemonType[]>|Partial<UseQueryResult<PokemonType[]>>
+      Partial<UseInfiniteQueryResult<{ data: PokemonType[] }>>
   },
   onPokemonClick?: (id: number) => void,
 }
@@ -29,26 +29,31 @@ export const Home = ({
   hooks,
 }: Props): JSX.Element => {
   const [search, setSearch] = useState('')
-  const debounced = useDebounce(search, 400)
-  const { isLoading, data } = hooks.usePokemonList(debounced)
+  const pokemonName = useDebounce(search, 400)
+
+  const { isLoading, data, fetchNextPage } = hooks.usePokemonList(pokemonName)
+
+  const pokemons = data
+    ? data.pages.map(({ data }) => data)
+    : []
 
   return (
     <Container>
       <Title>Pokédex</Title>
-      <form>
         <Input
           disabled={isLoading}
           name="search"
           placeholder="Search for a pokémon"
           onChange={({ target }) => setSearch(target.value)}
         />
-      </form>
       <Subtitle>
-        The Pokédex contains detailed stats for every creature from the Pokémon games.
+        The Pokédex contains detailed stats for every
+        creature from the Pokémon games.
       </Subtitle>
       <PokemonList
-        items={data || []}
+        items={pokemons.flat() || []}
         onItemClick={onPokemonClick}
+        onLoadMore={() => fetchNextPage && fetchNextPage()}
       />
     </Container>
   )
