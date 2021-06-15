@@ -14,6 +14,7 @@ const queryClient = new QueryClient({
     queries: {
       useErrorBoundary: true,
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
     },
   }
 })
