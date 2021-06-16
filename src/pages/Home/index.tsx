@@ -15,16 +15,19 @@ import Header from '../../components/Header'
 import Input from '../../components/Input'
 import PokemonList from '../../components/PokemonList'
 import IconButton from '../../components/IconButton'
+import Button from '../../components/Button'
 
 type Props = {
   hooks: { usePokemons: usePokemonsType },
   onBookmarksClick: () => void,
+  onLogoutClick: () => void,
   onPokemonClick: (id: number) => void,
 }
 
 export const Home = ({
   onBookmarksClick,
   onPokemonClick = () => ({}),
+  onLogoutClick = () => ({}),
   hooks,
 }: Props): JSX.Element => {
   const [search, setSearch] = useState('')
@@ -45,6 +48,10 @@ export const Home = ({
           variant="ghost"
           icon={<BookmarksIcon width={24} height={24} />}
         />
+        <Button
+          onClick={onLogoutClick}
+          variant="unstyled"
+        >Logout</Button>
       </Header>
       <Input
         disabled={isLoading}
@@ -68,10 +75,16 @@ export const Home = ({
 const HomePage = (): JSX.Element => {
   const { push } = useHistory()
 
+  const onLogout = () => {
+    localStorage.setItem('session_id', '')
+    window.location.reload()
+  }
+
   return (
     <Home
       onBookmarksClick={() => push('/bookmarks')}
-      onPokemonClick={id => push(`/pokemon/${id}`)}
+      onPokemonClick={id => push(`/pokemons/${id}`)}
+      onLogoutClick={onLogout}
       hooks={{ usePokemons }}
     />
   )

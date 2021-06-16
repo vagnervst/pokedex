@@ -52,7 +52,7 @@ const BookmarksPage = (): JSX.Element => {
 
   return (
     <Bookmarks
-      onPokemonClick={id => push(`/pokemon/${id}`)}
+      onPokemonClick={id => push(`/pokemons/${id}`)}
       onNavigateBack={() => push('/pokemons')}
       hooks={{ usePokemons }}
     />
