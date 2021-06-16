@@ -1,31 +1,16 @@
-import { ChangeEventHandler } from 'react'
+import { InputStyle } from './styles'
 
-import {
-  Container,
-  Input,
-} from './styles'
+type Props = React.InputHTMLAttributes<HTMLInputElement>
 
-type Props = {
-  disabled?: boolean,
-  name?: string,
-  onChange: ChangeEventHandler<HTMLInputElement>,
-  placeholder?: string,
-}
-
-const SearchInput = ({
-  disabled = false,
-  name = '',
-  onChange,
-  placeholder,
-}: Props): JSX.Element => (
-  <Container>
-    <Input
-      disabled={disabled}
-      name={name}
-      onChange={e => !disabled && onChange(e)}
-      placeholder={placeholder}
-    />
-  </Container>
+const Input = (props: Props): JSX.Element => (
+  <InputStyle
+    {...props}
+    onChange={e => {
+      if (props.onChange && !props.disabled) {
+        props.onChange(e)
+      }
+    }}
+  />
 )
 
-export default SearchInput
+export default Input
