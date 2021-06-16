@@ -11,5 +11,14 @@ export const Title = styled.h1`
 
 export const Flex = styled.div<{ direction: string }>`
   display: flex;
-  flex-direction: ${props => props.direction}
+  flex: 1;
+  flex-direction: ${props => props.direction};
+  align-items: center;
+`
+
+export const Container = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex: 1;
 `

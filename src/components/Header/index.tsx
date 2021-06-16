@@ -19,16 +19,14 @@ const Header = ({
   showBackButton = false,
   title,
 }: Props): JSX.Element => (
-  <Flex direction="column">
+  <Flex direction="row">
     {showBackButton && (
       <ArrowBack fill="black" onClick={onNavigateBack} />
     )}
-    <Flex direction="row">
-      <Title>{title}</Title>
-      <ChildrenContainer>
-        {children}
-      </ChildrenContainer>
-    </Flex>
+    <Title>{title}</Title>
+    <ChildrenContainer>
+      {children}
+    </ChildrenContainer>
   </Flex>
 )
 
