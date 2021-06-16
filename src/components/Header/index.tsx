@@ -9,7 +9,7 @@ import {
 type Props = {
   showBackButton?: boolean,
   onNavigateBack?: () => void,
-  children?: React.ReactChildren|React.ReactChild,
+  children?: JSX.Element|JSX.Element[],
   title: string,
 }
 
