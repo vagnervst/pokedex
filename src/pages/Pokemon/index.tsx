@@ -12,7 +12,7 @@ import { Pokemon as PokemonType } from '../../types/pokemon'
 import { ReactComponent as BookmarkIcon } from './bookmark.svg'
 import { ReactComponent as BookmarkedIcon } from './bookmarked.svg'
 import { statLabels } from './labels'
-import usePokemon from './hooks/usePokemon'
+import { usePokemon } from '../../hooks/usePokemons'
 import useBookmark from '../../hooks/useBookmark'
 
 import {

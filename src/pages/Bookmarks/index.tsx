@@ -4,12 +4,12 @@ import Header from '../../components/Header'
 import PokemonList from '../../components/PokemonList'
 
 import useBookmark from '../../hooks/useBookmark'
-import usePokemons, { usePokemonsType } from '../../hooks/usePokemons'
+import { usePokemons } from '../../hooks/usePokemons'
 
 import { Container } from './styles'
 
 type Props = {
-  hooks: { usePokemons: usePokemonsType },
+  hooks: { usePokemons: typeof usePokemons },
   onPokemonClick: (id: number) => void,
   onNavigateBack: () => void,
 }

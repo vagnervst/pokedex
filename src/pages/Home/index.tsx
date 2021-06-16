@@ -8,7 +8,7 @@ import {
 
 import { ReactComponent as BookmarksIcon } from './bookmarks.svg'
 
-import usePokemons, { usePokemonsType } from '../../hooks/usePokemons'
+import { usePokemons } from '../../hooks/usePokemons'
 import useDebounce from '../../hooks/useDebounce'
 
 import Header from '../../components/Header'
@@ -18,7 +18,7 @@ import IconButton from '../../components/IconButton'
 import Button from '../../components/Button'
 
 type Props = {
-  hooks: { usePokemons: usePokemonsType },
+  hooks: { usePokemons: typeof usePokemons },
   onBookmarksClick: () => void,
   onLogoutClick: () => void,
   onPokemonClick: (id: number) => void,
