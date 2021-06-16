@@ -7,10 +7,10 @@ import { gql } from 'graphql-request'
 
 import client, { getPokemonPictureUrl } from '../../utils/api/client'
 
-import type { PokemonType } from '../../types/pokemon'
+import { Pokemon } from '../../types/pokemon'
 
 type PokemonsResponse = {
-  pokemons: { id: number, name: string }[],
+  pokemons: Pokemon[],
 }
 
 type QueryParams = {
@@ -22,7 +22,7 @@ type QueryParams = {
 
 type FetchResult = {
   offset: number,
-  data: PokemonType[],
+  data: Pokemon[],
 }
 
 const PokemonInfo = gql`
@@ -31,7 +31,7 @@ fragment PokemonInfo on pokemon_v2_pokemon {
   name
   types: pokemon_v2_pokemontypes {
     slot
-    info: pokemon_v2_type {
+    type: pokemon_v2_type {
       name
     }
   }

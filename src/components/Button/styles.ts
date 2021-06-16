@@ -6,14 +6,13 @@ const Base = styled.button`
   cursor: pointer;
   border-radius: 2px;
   font-weight: 700;
-  color: #f4f4f4;
+  color: ${({ theme }) => theme.colors.gray[50]};
   border: 0;
   outline: none;
 `
 
 export const Solid = styled(Base)`
-  background-color: #e26061;
-  color: #f4f4f4;
+  background-color: ${({ theme }) => theme.colors.red[400]};
   transition: background-color .2s;
 
   &[disabled] {

@@ -1,6 +1,11 @@
 import styled from '@emotion/styled'
 
-export const SpinnerStyle = styled.div<{ r: number }>`
+type Props = {
+  r: number,
+  mode: 'light'|'dark',
+}
+
+export const SpinnerStyle = styled.div<Props>`
   @keyframes rotate {
     0% {
       transform: rotateZ(0deg);
@@ -19,7 +24,7 @@ export const SpinnerStyle = styled.div<{ r: number }>`
     animation: rotate .7s infinite linear;
 
     & > circle {
-      stroke: ${props => props.theme === 'dark' ? '#000' : '#fff'};
+      stroke: ${props => props.mode === 'dark' ? '#000' : '#fff'};
       r: ${props => `${props.r}px;`
     }
   }

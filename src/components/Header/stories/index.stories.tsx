@@ -22,3 +22,11 @@ export const WithChildren = (): JSX.Element => (
     />
   </Header>
 )
+
+export const WithBackButton = (): JSX.Element => (
+  <Header
+    showBackButton
+    onNavigateBack={action('onNavigateBack')}
+    title="Header"
+  />
+)

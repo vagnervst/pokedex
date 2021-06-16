@@ -6,7 +6,7 @@ export const ChildrenContainer = styled.div`
 `
 
 export const Title = styled.h1`
-  color: #d65952;
+  color: ${({ theme }) => theme.colors.red[400]};
 `
 
 export const Flex = styled.div<{ direction: string }>`

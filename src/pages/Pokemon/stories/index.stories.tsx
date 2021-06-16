@@ -3,7 +3,11 @@ import { QueryObserverSuccessResult } from 'react-query'
 
 import mockLocalStorage from '../../../mocks/localStorage'
 
-import { PokemonDetails, PokemonStats } from '../../../types/pokemon'
+import {
+  Pokemon as PokemonType,
+  PokemonStats,
+  PokemonTypes,
+} from '../../../types/pokemon'
 
 import { Pokemon } from '..'
 
@@ -13,7 +17,7 @@ Object.defineProperty(window, 'localStorage', {
   value: mockLocalStorage(),
 })
 
-const usePokemon = (): Partial<QueryObserverSuccessResult<PokemonDetails>> => ({
+const usePokemon = (): Partial<QueryObserverSuccessResult<PokemonType>> => ({
   isLoading: false,
   data: {
     id: 1,
@@ -28,8 +32,8 @@ const usePokemon = (): Partial<QueryObserverSuccessResult<PokemonDetails>> => ({
       { value: 45, stat: { name: PokemonStats.Speed } },
     ],
     types: [
-      { slot: 1, type: { name: 'grass' } },
-      { slot: 2, type: { name: 'poison' } },
+      { slot: 1, type: { name: 'grass' as PokemonTypes } },
+      { slot: 2, type: { name: 'poison' as PokemonTypes } },
     ]
   }
 })

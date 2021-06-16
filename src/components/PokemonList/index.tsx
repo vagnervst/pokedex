@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 
-import type { PokemonType } from '../../types/pokemon'
+import { Pokemon } from '../../types/pokemon'
 
 import { Container } from './styles'
 
 import PokemonButton from '../PokemonButton'
 
 type Props = {
-  items: PokemonType[],
+  items: Pokemon[],
   onItemClick: (id: number) => void,
   onLoadMore?: () => void,
 }
@@ -39,11 +39,12 @@ const PokemonList = ({
 
   return (
     <Container>
-      {items.map(({ id, picture, name }) => (
+      {items.map(({ id, picture, name, types }) => (
         <PokemonButton
           key={id}
           id={id}
           picture={picture}
+          types={types}
           name={name}
           onClick={onItemClick}
         />

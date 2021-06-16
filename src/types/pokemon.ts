@@ -7,25 +7,26 @@ export enum PokemonStats {
   Speed = 'speed',
 }
 
-type Stat = {
+export type PokemonTypes =
+  'normal' | 'fire' | 'fighting' | 'water' |
+  'flying' |'grass' | 'poison' | 'electric' |
+  'ground' | 'psychic' | 'rock' | 'ice' | 'bug' |
+  'dragon' | 'ghost' | 'dark' | 'steel' | 'fairy'
+
+export type Stat = {
   value: number,
-  stat: {
-    name: PokemonStats
-  },
+  stat: { name: PokemonStats },
 }
 
-type Type = {
+export type Type = {
   slot: number,
-  type: { name: string },
+  type: { name: PokemonTypes },
 }
 
-export type PokemonType = {
+export type Pokemon = {
   id: number,
   name: string,
   picture: string,
-}
-
-export type PokemonDetails = PokemonType & {
   types: Type[],
   stats: Stat[],
 }

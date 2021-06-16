@@ -6,11 +6,11 @@ import { ReactComponent as Circle } from './circle.svg'
 
 type Props = {
   r?: number,
-  theme?: 'dark'|'light'
+  mode?: 'dark'|'light'
 }
 
-const Spinner = ({ theme='light', r = 64 }: Props): JSX.Element => (
-  <SpinnerStyle theme={theme} r={r}>
+const Spinner = ({ mode = 'light', r = 64 }: Props): JSX.Element => (
+  <SpinnerStyle mode={mode} r={r}>
     <Circle />
   </SpinnerStyle>
 )

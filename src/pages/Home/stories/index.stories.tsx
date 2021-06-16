@@ -1,6 +1,7 @@
 import { action } from '@storybook/addon-actions'
 
 import { Home } from '..'
+import { PokemonTypes } from '../../../types/pokemon'
 
 import BulbasaurImage from './bulbasaur.png'
 
@@ -12,18 +13,13 @@ export default {
   },
 }
 
-const pokemons = [
-  {
-    id: 1,
-    picture: BulbasaurImage,
-    name: 'Bulbasaur',
-  },
-  {
-    id: 2,
-    picture: BulbasaurImage,
-    name: 'Bulbasaur Clone',
-  },
-]
+const pokemons = new Array(10).fill(0).map((value, index) => ({
+  id: index,
+  picture: BulbasaurImage,
+  name: `Bulbasaur ${index + 1}`,
+  types: [{ slot: 1, type: { name: 'grass' as PokemonTypes } }],
+  stats: [],
+}))
 
 export const Default = (): JSX.Element => (
   <Home

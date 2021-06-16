@@ -2,13 +2,9 @@ import { Component, ReactChild } from 'react'
 
 import ErrorBoundaryPage from '../pages/ErrorBoundary'
 
-type Props = {
-  children: ReactChild,
-}
+type Props = { children: ReactChild }
 
-type State = {
-  hasError: boolean,
-}
+type State = { hasError: boolean }
 
 class ErrorBoundary extends Component<Props, State> {
   state = { hasError: false }

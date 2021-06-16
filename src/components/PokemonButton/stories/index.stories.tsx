@@ -15,5 +15,8 @@ export const Default = (): JSX.Element => (
     id={1}
     picture={BulbasaurImage}
     name="Bulbasaur"
+    types={[
+      { slot: 1, type: { name: 'grass' } }
+    ]}
   />
 )

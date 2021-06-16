@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request'
 import { useQuery, UseQueryResult } from 'react-query'
 
-import type { PokemonDetails } from '../../../types/pokemon'
+import { Pokemon } from '../../../types/pokemon'
 
 import client, { getPokemonPictureUrl } from '../../../utils/api/client'
 
@@ -34,7 +34,7 @@ const fetch = async (id: number) => {
   return pokemon
 }
 
-const usePokemon = (id: number): UseQueryResult<PokemonDetails> =>
+const usePokemon = (id: number): UseQueryResult<Pokemon> =>
   useQuery(`pokemonDetails/${id}`, () => fetch(id))
 
 export default usePokemon

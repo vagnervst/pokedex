@@ -7,7 +7,7 @@ import ArrowBack from '../../components/ArrowBack'
 import Image from '../../components/Image'
 import Spinner from '../../components/Spinner'
 
-import type { PokemonDetails } from '../../types/pokemon'
+import { Pokemon as PokemonType } from '../../types/pokemon'
 
 import { ReactComponent as BookmarkIcon } from './bookmark.svg'
 import { ReactComponent as BookmarkedIcon } from './bookmarked.svg'
@@ -34,9 +34,7 @@ type Props = {
   pokemonId: number,
   onBackClick: () => void,
   hooks: {
-    usePokemon: (id: number) =>
-      UseQueryResult<PokemonDetails> |
-      Partial<UseQueryResult<PokemonDetails>>,
+    usePokemon: (id: number) => Partial<UseQueryResult<PokemonType>>,
   },
 }
 
@@ -62,7 +60,7 @@ export const Pokemon = (
 
   return (
     <Container>
-      <Header>
+      <Header type={data?.types[0].type.name}>
         <ArrowBack onClick={onBackClick} />
         {!isLoading && (
           <BookmarkContainer>
@@ -97,7 +95,12 @@ export const Pokemon = (
       <Main>
         <TypesList>
           {data && data.types.map(({ slot, type }) => (
-            <Badge aria-label={type.name} key={slot}>{type.name}</Badge>
+            <Badge
+              key={slot}
+              aria-label={type.name}
+              size="xl"
+              color={type.name}
+            >{type.name}</Badge>
           ))}
         </TypesList>
         <AttributeList>

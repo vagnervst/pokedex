@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { QueryClientProvider, QueryClient } from 'react-query'
+import { ThemeProvider } from '@emotion/react'
 
 import GlobalStyles from './theme/global'
+import theme from './theme'
 import reportWebVitals from './reportWebVitals'
 
 import ErrorBoundary from './components/errorBoundary'
@@ -24,7 +26,9 @@ ReactDOM.render(
     <GlobalStyles>
       <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </QueryClientProvider>
       </ErrorBoundary>
     </GlobalStyles>

@@ -8,21 +8,21 @@ const Base = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 8px;
+  padding: ${({ theme }) => theme.sizes.md}px;
 `
 
 export const Solid = styled(Base)`
-  background-color: #d21a13;
-  box-shadow: 1px 2px 1px #a6a6a6;
+  background-color: ${({ theme }) => theme.colors.red[400]};
+  box-shadow: 1px 2px 1px ${({ theme }) => theme.colors.gray[50]};
   border-radius: 50%;
   transition: .2s background-color;
 
   &:hover {
-    background-color: #ed3f38;
+    background-color: ${({ theme }) => theme.colors.red[500]};
   }
 
   &:active {
-    background-color: #a5130e;
+    background-color: ${({ theme }) => theme.colors.red[600]};
   }
 `
 

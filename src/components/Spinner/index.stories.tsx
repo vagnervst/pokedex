@@ -2,9 +2,9 @@ import Spinner from '.'
 
 export default {
   title: 'Components/Spinner',
-  component: Image,
+  component: Spinner,
 }
 
 export const Default = (): JSX.Element => (
-  <Spinner theme="dark" r={30} />
+  <Spinner mode="dark" r={30} />
 )

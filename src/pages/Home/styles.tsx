@@ -1,9 +1,11 @@
 import styled from '@emotion/styled'
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 8px;
+  padding: ${({ theme }) => theme.sizes.sm}px;
+
+  & > div {
+    margin-bottom: ${({ theme }) => theme.sizes.md}px;
+  }
 `
 
 export const Title = styled.h1`

@@ -1,8 +1,8 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent } from '../../../tests/test-utils'
 
 import Button from '.'
 
-it('should call onClick when clicking', () => {
+it.only('should call onClick when clicking', () => {
   const onClick = jest.fn()
 
   render(
@@ -14,7 +14,7 @@ it('should call onClick when clicking', () => {
   expect(onClick).toHaveBeenCalled()
 })
 
-it('should not call onClick when disabled', () => {
+it.only('should not call onClick when disabled', () => {
   const onClick = jest.fn()
 
   render(

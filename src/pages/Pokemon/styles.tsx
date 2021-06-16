@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
 
+import { PokemonTypes } from '../../types/pokemon'
+
 export const AttributeList = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,12 +19,12 @@ export const Attribute = styled.div`
   font-size: 18px;
 
   & > span:first-of-type {
-    font-weight: 500;
+    font-weight: ${({ theme }) => theme.fonts.weight[500]};
     width: 100%;
   }
 
   & > span:last-child {
-    color: #555;
+    color: ${({ theme }) => theme.colors.gray[500]};
   }
 `
 
@@ -35,9 +37,11 @@ export const BookmarkContainer = styled.div`
 
 export const Container = styled.div``
 
-export const Header = styled.div`
+export const Header = styled.div<{ type?: PokemonTypes }>`
   height: 290px;
-  background-color: #93caa8;
+  background-color: ${
+    ({ theme, type }) => theme.colors.types[type] || theme.colors.red[400]
+  };
   position: relative;
   padding: 4px;
 
