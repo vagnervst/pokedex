@@ -24,3 +24,11 @@ export const Default = (): JSX.Element => (
     items={items}
   />
 )
+
+export const Loading = (): JSX.Element => (
+  <PokemonList
+    loading
+    onItemClick={action('onItemClick')}
+    items={items}
+  />
+)

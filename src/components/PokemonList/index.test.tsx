@@ -1,6 +1,16 @@
 import { fireEvent, render, screen } from '../../../tests/test-utils'
 
+import { PokemonTypes } from '../../types/pokemon'
+
 import PokemonList from '.'
+
+const pokemons = new Array(10).fill(0).map((value, index) => ({
+  id: index,
+  picture: '',
+  name: 'Bulbasaur Clone',
+  types: [{ slot: 1, type: { name: 'grass' as PokemonTypes } }],
+  stats: [],
+}))
 
 it('should call onItemClick with the expected id', () => {
   const onItemClick = jest.fn()
@@ -8,10 +18,7 @@ it('should call onItemClick with the expected id', () => {
   render(
     <PokemonList
       onItemClick={onItemClick}
-      items={[
-        { id: 1, name: 'Bulbasaur', picture: '' },
-        { id: 2, name: 'Bulbasaur Clone', picture: '' },
-      ]}
+      items={pokemons}
     />
   )
 
@@ -27,10 +34,7 @@ it('should call onLoadMore when scrolling to the bottom', () => {
     <PokemonList
       onLoadMore={onLoadMore}
       onItemClick={jest.fn()}
-      items={[
-        { id: 1, name: 'Bulbasaur', picture: '' },
-        { id: 2, name: 'Bulbasaur Clone', picture: '' },
-      ]}
+      items={pokemons}
     />
   )
 
