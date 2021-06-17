@@ -53,7 +53,7 @@ query ($offset: Int!, $limit: Int!, $name: String!) {
   pokemons: pokemon_v2_pokemon(
     offset: $offset,
     limit: $limit,
-    where: { name: { _regex: $name } }
+    where: { name: { _iregex: $name } }
   ) {
     ...PokemonInfo
   }
