@@ -40,7 +40,7 @@ export const Default = (): JSX.Element => (
   />
 )
 
-export const Disabled = (): JSX.Element => (
+export const Loading = (): JSX.Element => (
   <Home
     onBookmarksClick={action('onBookmarksClick')}
     onPokemonClick={action('onPokemonClick')}

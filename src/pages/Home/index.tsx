@@ -1,21 +1,23 @@
 import { useState } from 'react'
 import { useHistory } from 'react-router'
 
-import {
-  Container,
-  Subtitle,
-} from './styles'
+import { Subtitle } from './styles'
 
 import { ReactComponent as BookmarksIcon } from './bookmarks.svg'
 
 import { usePokemons } from '../../hooks/usePokemons'
 import useDebounce from '../../hooks/useDebounce'
 
-import Header from '../../components/Header'
 import Input from '../../components/Input'
 import PokemonList from '../../components/PokemonList'
 import IconButton from '../../components/IconButton'
 import Button from '../../components/Button'
+
+import {
+  Layout,
+  LayoutContent,
+  LayoutHeader,
+} from '../Layout'
 
 type Props = {
   hooks: { usePokemons: typeof usePokemons },
@@ -40,8 +42,8 @@ export const Home = ({
     : []
 
   return (
-    <Container>
-      <Header title="Pokédex">
+    <Layout>
+      <LayoutHeader title="Pokédex">
         <IconButton
           ariaLabel="Bookmarks"
           onClick={onBookmarksClick}
@@ -51,24 +53,29 @@ export const Home = ({
         <Button
           onClick={onLogoutClick}
           variant="unstyled"
-        >Logout</Button>
-      </Header>
-      <Input
-        disabled={isLoading}
-        name="search"
-        placeholder="Search for a pokémon"
-        onChange={({ target }) => setSearch(target.value)}
-      />
-      <Subtitle>
-        The Pokédex contains detailed stats for every
-        creature from the Pokémon games.
-      </Subtitle>
-      <PokemonList
-        items={pokemons.flat() || []}
-        onItemClick={onPokemonClick}
-        onLoadMore={() => fetchNextPage && fetchNextPage()}
-      />
-    </Container>
+        >
+          Logout
+        </Button>
+      </LayoutHeader>
+      <LayoutContent>
+        <Input
+          disabled={isLoading}
+          name="search"
+          placeholder="Search for a pokémon"
+          onChange={({ target }) => setSearch(target.value)}
+        />
+        <Subtitle>
+          The Pokédex contains detailed stats for every
+          creature from the Pokémon games.
+        </Subtitle>
+        <PokemonList
+          items={pokemons.flat() || []}
+          onItemClick={onPokemonClick}
+          onLoadMore={() => fetchNextPage && fetchNextPage()}
+          loading={isLoading}
+        />
+      </LayoutContent>
+    </Layout>
   )
 }
 

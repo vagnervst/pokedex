@@ -3,9 +3,17 @@ import { fireEvent, render, screen } from '../../../tests/test-utils'
 import { Bookmarks } from '.'
 
 const pokemons = [
-  { id: 1, name: 'Bulbasaur', picture: '' },
-  { id: 2, name: 'Ivysaur', picture: '' },
+  { id: 1, name: 'Bulbasaur', picture: '', types: [], stats: [] },
+  { id: 2, name: 'Ivysaur', picture: '', types: [], stats: [] },
 ]
+
+const useBookmark = (loading = false) => ({
+  loading,
+  add: () => [],
+  get: () => 1,
+  getAll: () => [1],
+  remove: () => [],
+})
 
 it('should render items without errors', () => {
   const usePokemons = () => ({
@@ -16,7 +24,7 @@ it('should render items without errors', () => {
     <Bookmarks
       onNavigateBack={jest.fn()}
       onPokemonClick={jest.fn()}
-      hooks={{ usePokemons }}
+      hooks={{ useBookmark, usePokemons }}
     />
   )
 })
@@ -32,7 +40,7 @@ it('should call onPokemonClick with pokemon id', () => {
     <Bookmarks
       onNavigateBack={jest.fn()}
       onPokemonClick={onPokemonClick}
-      hooks={{ usePokemons }}
+      hooks={{ useBookmark, usePokemons }}
     />
   )
 
@@ -52,7 +60,7 @@ it('should call onNavigateBack when clicking on back button', () => {
     <Bookmarks
       onNavigateBack={onNavigateBack}
       onPokemonClick={jest.fn()}
-      hooks={{ usePokemons }}
+      hooks={{ useBookmark, usePokemons }}
     />
   )
 

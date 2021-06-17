@@ -1,15 +1,23 @@
 import { useHistory } from 'react-router'
 
-import Header from '../../components/Header'
 import PokemonList from '../../components/PokemonList'
 
 import useBookmark from '../../hooks/useBookmark'
 import { usePokemons } from '../../hooks/usePokemons'
 
-import { Container } from './styles'
+import {
+  LayoutContent,
+  LayoutHeader,
+  Layout,
+} from '../Layout'
+
+const isEmpty = (list: unknown[]) => list.length === 0
 
 type Props = {
-  hooks: { usePokemons: typeof usePokemons },
+  hooks: {
+    useBookmark: typeof useBookmark,
+    usePokemons: typeof usePokemons,
+  },
   onPokemonClick: (id: number) => void,
   onNavigateBack: () => void,
 }
@@ -19,31 +27,40 @@ export const Bookmarks = ({
   onPokemonClick,
   onNavigateBack,
 }: Props): JSX.Element => {
-  const { getAll, loading } = useBookmark()
+  const { getAll, loading: bookmarksLoading } = hooks.useBookmark()
+  const bookmarkIds = getAll()
 
-  const { data, fetchNextPage } = hooks.usePokemons(
+  const {
+    isPreviousData,
+    isLoading: requestLoading,
+    data,
+    fetchNextPage,
+  } = hooks.usePokemons(
     '',
-    getAll(),
-    { enabled: !loading }
+    bookmarkIds,
+    { enabled: !bookmarksLoading && !isEmpty(bookmarkIds) }
   )
 
-  const pokemons = data
+  const pokemons = !isPreviousData && data && !isEmpty(bookmarkIds)
     ? data.pages.map(({ data }) => data)
     : []
 
   return (
-    <Container>
-      <Header
+    <Layout>
+      <LayoutHeader
         title="Bookmarks"
-        onNavigateBack={onNavigateBack}
         showBackButton
+        onNavigateBack={onNavigateBack}
       />
-      <PokemonList
-        items={pokemons.flat()}
-        onItemClick={onPokemonClick}
-        onLoadMore={fetchNextPage}
-      />
-    </Container>
+      <LayoutContent>
+        <PokemonList
+          items={pokemons.flat()}
+          loading={bookmarksLoading || requestLoading}
+          onItemClick={onPokemonClick}
+          onLoadMore={fetchNextPage}
+        />
+      </LayoutContent>
+    </Layout>
   )
 }
 
@@ -54,7 +71,7 @@ const BookmarksPage = (): JSX.Element => {
     <Bookmarks
       onPokemonClick={id => push(`/pokemons/${id}`)}
       onNavigateBack={() => push('/pokemons')}
-      hooks={{ usePokemons }}
+      hooks={{ useBookmark, usePokemons }}
     />
   )
 }

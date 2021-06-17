@@ -30,10 +30,26 @@ const usePokemons = () => ({
   },
 })
 
+const useBookmark = (loading = false) => ({
+  loading,
+  add: () => [],
+  get: () => 1,
+  getAll: () => [1],
+  remove: () => [],
+})
+
 export const Default = (): JSX.Element => (
   <Bookmarks
     onPokemonClick={action('onPokemonClick')}
     onNavigateBack={action('onNavigateBack')}
-    hooks={{ usePokemons }}
+    hooks={{ useBookmark, usePokemons }}
+  />
+)
+
+export const Loading = (): JSX.Element => (
+  <Bookmarks
+    onPokemonClick={action('onPokemonClick')}
+    onNavigateBack={action('onNavigateBack')}
+    hooks={{ useBookmark: () => useBookmark(true), usePokemons }}
   />
 )
