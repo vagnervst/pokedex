@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 
-export const Container = styled.div`
+export const EmptyState = styled.p`
+  text-align: center;
+  font-size: 20px;
+  color: ${({ theme }) => theme.colors.gray[300]};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
-  box-sizing: content-box;
-  // padding: ${({ theme }) => theme.sizes.sm}px;
-
-  & > div {
-    // margin-bottom: ${({ theme }) => theme.sizes.md}px;
-  }
 `

@@ -21,11 +21,11 @@ const pokemons = new Array(10).fill(0).map((value, index) => ({
   stats: [],
 }))
 
-const usePokemons = () => ({
+const usePokemons = (data = pokemons) => ({
   data: {
     pageParams: [],
     pages: [
-      { offset: 0, data: pokemons },
+      { offset: 0, data },
     ]
   },
 })
@@ -42,7 +42,10 @@ export const Default = (): JSX.Element => (
   <Bookmarks
     onPokemonClick={action('onPokemonClick')}
     onNavigateBack={action('onNavigateBack')}
-    hooks={{ useBookmark, usePokemons }}
+    hooks={{
+      useBookmark,
+      usePokemons: () => usePokemons(),
+    }}
   />
 )
 
@@ -50,6 +53,20 @@ export const Loading = (): JSX.Element => (
   <Bookmarks
     onPokemonClick={action('onPokemonClick')}
     onNavigateBack={action('onNavigateBack')}
-    hooks={{ useBookmark: () => useBookmark(true), usePokemons }}
+    hooks={{
+      useBookmark: () => useBookmark(true),
+      usePokemons: () => usePokemons(),
+    }}
+  />
+)
+
+export const EmptyState = (): JSX.Element => (
+  <Bookmarks
+    onPokemonClick={action('onPokemonClick')}
+    onNavigateBack={action('onNavigateBack')}
+    hooks={{
+      useBookmark: () => useBookmark(false),
+      usePokemons: () => usePokemons([]),
+    }}
   />
 )

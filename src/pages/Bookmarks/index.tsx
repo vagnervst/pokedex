@@ -11,6 +11,10 @@ import {
   Layout,
 } from '../Layout'
 
+import {
+  EmptyState
+} from './styles'
+
 const isEmpty = (list: unknown[]) => list.length === 0
 
 type Props = {
@@ -42,7 +46,7 @@ export const Bookmarks = ({
   )
 
   const pokemons = !isPreviousData && data && !isEmpty(bookmarkIds)
-    ? data.pages.map(({ data }) => data)
+    ? data.pages.map(({ data }) => data).flat()
     : []
 
   return (
@@ -53,12 +57,18 @@ export const Bookmarks = ({
         onNavigateBack={onNavigateBack}
       />
       <LayoutContent>
-        <PokemonList
-          items={pokemons.flat()}
-          loading={bookmarksLoading || requestLoading}
-          onItemClick={onPokemonClick}
-          onLoadMore={fetchNextPage}
-        />
+        {pokemons.length > 0 ? (
+          <PokemonList
+            items={pokemons}
+            loading={bookmarksLoading || requestLoading}
+            onItemClick={onPokemonClick}
+            onLoadMore={fetchNextPage}
+          />
+        ) : (
+          <EmptyState>
+            You dont have any bookmarked Pokémons.
+          </EmptyState>
+        )}
       </LayoutContent>
     </Layout>
   )
