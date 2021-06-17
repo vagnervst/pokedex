@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom'
 
 import Login from './pages/Login'
-import Home from './pages/Home'
+import Home from './pages/Pokemons'
 import Pokemon from './pages/Pokemon'
 import Bookmarks from './pages/Bookmarks'
 
