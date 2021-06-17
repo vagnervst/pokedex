@@ -26,6 +26,8 @@ const getPrimaryType = (types: Type[]) => {
   return type?.type.name || ''
 }
 
+const formatId = (id: number) => String(id).padStart(3, '0')
+
 const PokemonButton = ({
   id,
   name,
@@ -33,7 +35,12 @@ const PokemonButton = ({
   picture,
   types = [],
 }: Props): JSX.Element => (
-  <Container color={getPrimaryType(types)} role="button" onClick={() => onClick(id)}>
+  <Container
+    aria-label={`${name} #${formatId(id)}`}
+    color={getPrimaryType(types)}
+    role="button"
+    onClick={() => onClick(id)}
+  >
     <ImageContainer>
       <Image
         alt={name}
@@ -51,7 +58,7 @@ const PokemonButton = ({
       </AttributeList>
     </FlexContainer>
     <Identifier>
-      <span>#{String(id).padStart(3, '0')}</span>
+      <span>#{formatId(id)}</span>
     </Identifier>
   </Container>
 )
